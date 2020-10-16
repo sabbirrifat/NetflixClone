@@ -1,5 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
+import netflixOrigian from './netflixOriginal.component';
+import newSeries from './newSeries.component';
 import './App.css';
 
 function App() {
