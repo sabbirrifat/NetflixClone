@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import MovieDetails from './MovieDetails.component';
 import axios from "./axios";
 import './row.css';
 
+
 const baseUrl = "https://image.tmdb.org/t/p/original/";
 
-const Row = ({ title, fetchUrl }) => {
+const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setmovies] = useState([]);
+  const [ movieDetails, setmovieDetails] = useState('')
 
   useEffect(() => {
     async function fetchData() {
@@ -16,21 +19,37 @@ const Row = ({ title, fetchUrl }) => {
     fetchData();
   }, [fetchUrl]);
 
+  
+
+  const handleClick = (movie) => {
+    if(movieDetails){
+      setmovieDetails('')
+    }
+    else{
+      setmovieDetails(movie) 
+    }
+  }
+
   return (
-    <div>
+    <div className="row">
       <h2>{title}</h2>
       <div className="row_posters">
         
         {movies.map((item, key) => (
           <img
             key={key}
-            className="row_poster"
-            src={`${baseUrl}${item.poster_path}`}
+            className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
+            src={`${baseUrl}${isLargeRow ? item.poster_path : item.backdrop_path}`}
             alt={item.name}
+            onClick={() => handleClick(item)}
           />
         ))}
 
       </div>
+      {
+        movieDetails ? <MovieDetails movie={movieDetails} />  : null
+      }
+      
     </div>
   );
 };
