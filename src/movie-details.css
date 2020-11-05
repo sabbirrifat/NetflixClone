@@ -1,5 +1,33 @@
 .movie-details-section {
     position: relative;
+    width: 100%;
+
+    height: 480px;
+}
+
+.movie-details-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie-description {
+    display: flex;
+    flex-basis: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.movie-description h1{
+    font-size: 42px;
+    color: white;
+}
+
+.movie-description p {
+    font-size: 18px;
+    color: white;
 }
 
 .grab-overlay {
@@ -10,3 +38,44 @@
     left: 0;
     z-index: 100;
 }
+
+.movie-trailer-part {
+    position: relative;
+    flex-basis: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.poster-overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.movie-trailer-part img{
+ width: inherit;
+ object-fit: contain;
+ max-height: 480px;
+ position: absolute;
+ z-index: 50;
+ opacity: 1;
+ transition: opacity 1s ease-out;
+ -webkit-transition: opacity 1s ease-out;
+ -moz-transition: opacity 1s ease-out;
+ -ms-transition: opacity 1s ease-out;
+ -o-transition: opacity 1s ease-out;
+}
+
+.youtube-trailer {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.youtube-trailer > div{
+    height: 100%;
+}
+
