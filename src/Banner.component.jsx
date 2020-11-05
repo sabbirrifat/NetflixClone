@@ -25,7 +25,8 @@ const Banner = () => {
             backgroundImage: `url(
                 "https://image.tmdb.org/t/p/original/${movie?.backdrop_path}"
             )`,
-            height: "448px"
+            backgroundColor: "rgba(0, 0,0, 0.3)",
+            height: "748px"
         }}>
             <div className="banner_contents">
                 <h1 className="banner_title">
@@ -40,7 +41,6 @@ const Banner = () => {
                     {movie?.overview?.length > 150 ? movie?.overview.slice(0, 150) + '...' : movie?.overview}
                 </p>
             </div>
-
             <div className="banner_fadeBottom"></div>
         </header>
     )

@@ -8,7 +8,7 @@ const baseUrl = "https://image.tmdb.org/t/p/original/";
 
 const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setmovies] = useState([]);
-  const [ movieDetails, setmovieDetails] = useState('')
+  const [ movieDetails, setmovieDetails] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -19,7 +19,6 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     fetchData();
   }, [fetchUrl]);
 
-  
 
   const handleClick = (movie) => {
     if(movieDetails){
@@ -33,9 +32,10 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   return (
     <div className="row">
       <h2>{title}</h2>
-      <div className="row_posters">
+      <div className="row_posters" >
         
         {movies.map((item, key) => (
+          <>
           <img
             key={key}
             className={`row_poster ${isLargeRow && 'row_posterLarge'}`}
@@ -43,7 +43,10 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
             alt={item.name}
             onClick={() => handleClick(item)}
           />
+          </>
         ))}
+        
+
 
       </div>
       {

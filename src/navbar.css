@@ -20,7 +20,7 @@
 }
 
 .nav_logo {
-    width: 80px;
+    width: 150px;
     position: fixed;
     left: 20px;
     object-fit: contain;
@@ -29,6 +29,6 @@
 .nav_avatar {
     position: fixed;
     right: 20px;
-    width: 30px;
+    width: 40px;
     object-fit: contain;
 }

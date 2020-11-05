@@ -14,6 +14,9 @@ class MovieDetails extends Component {
     this.state = {
       movieVideos : [],
       showPoster: true,
+      casts: [],
+      movie_details: [],
+      match_count: 0,
     }
 
   }
@@ -47,10 +50,15 @@ class MovieDetails extends Component {
   getData = async () => {
     const request = await axios.get(`/tv/${this.props.movie?.id}?api_key=${this.API_KEY}&append_to_response=videos`);
     this.setState({movieVideos: request.data.videos.results});
+    const casts = await axios.get(`/tv/${this.props.movie?.id}/credits?api_key=${this.API_KEY}&append_to_response=videos`);
+    this.setState({casts: casts.data.cast});
+    const details = await axios.get(`/tv/${this.props.movie?.id}?api_key=${this.API_KEY}`);
+    this.setState({movie_details: details.data});
    }
 
   componentDidMount(){
-      this.getData()
+      this.getData();
+      this.setState({match_count: Math.floor(Math.random() * (99 - 90) + 90)});
 
   }
 
@@ -68,7 +76,9 @@ class MovieDetails extends Component {
     render(){
 
       const {movie} = this.props;
-      const {movieVideos, showPoster} = this.state;
+      const {movieVideos, showPoster, casts, movie_details, match_count} = this.state;
+      const genresLength = movie_details?.genres?.length;
+      const castsLength = casts?.length;
 
       return (
         <div className="movie-details-section">
@@ -77,9 +87,38 @@ class MovieDetails extends Component {
                 <h1 className="movie-title">
                   {movie?.title || movie?.name || movie?.original_name}
                 </h1>
-                <p className="movie-description">
+                <p className="movie-overview">
                   {movie?.overview?.length > 200 ? movie?.overview.slice(0, 200) + '...' : movie?.overview}
                 </p>
+                <p className="extra-info">
+                  <span className="movie-match-count">{match_count}% Match </span>
+                  {movie_details?.last_air_date?.slice(0,4)}   
+                  {movie_details?.number_of_seasons > 1 ?  ` ${movie_details?.number_of_seasons} Seasons ` :  ` ${movie_details?.number_of_seasons} Season`} 
+                  <span className="production-logo">{movie_details?.networks ? 
+                    <img src={`${this.baseUrl}${movie_details?.networks[0]?.logo_path}`} /> : null
+                  }</span>
+                  </p>
+                  <p className="movie-casts"><span>Cast: </span> {
+                    casts?.filter((item, key) => key < 5).map((item, key)=> {
+                      if(castsLength === key + 1){
+                        return `${item.name}`
+                      }
+                      else {
+                        return `${item.name}, `
+                      }
+                      
+                    })
+                  } {castsLength > 5 ? 'more' : ''} </p>
+                  <p className="movie-genres"><span>Genres: </span> {
+                    movie_details?.genres?.filter((item, key) => key < 3).map((item, key)=> {
+                      if(genresLength === key + 1){
+                        return `${item.name}`
+                      }
+                      else{
+                      return `${item.name}, `
+                      }
+                    })
+                  } {movie_details?.genres?.length > 3 ? 'more' : ''} </p>
               </div>
               <div className="movie-trailer-part">
                   <div className="poster-overlay"></div>
