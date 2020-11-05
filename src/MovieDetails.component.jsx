@@ -15,6 +15,9 @@ const MovieDetails = ({movie}) => {
         width: "100%",
         playerVars: {
           autoplay: 1,
+          controls: 0,
+          rel: 0,
+          modestbranding: 1,
         }
       }
 
@@ -29,8 +32,9 @@ const MovieDetails = ({movie}) => {
 
 
     return (
-        <div>
+        <div className="movie-details-section">
             <YouTube videoId={movieVideos[0]?.key}  opts={opts} />
+            <div className="grab-overlay"></div>
         </div>
     )
 }
