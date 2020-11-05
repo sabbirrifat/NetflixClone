@@ -10,23 +10,34 @@ class MovieDetails extends Component {
     super();
     this.API_KEY = "d157a4c0c49d8680fec022915ac81440";
     this.baseUrl = "https://image.tmdb.org/t/p/original/";
-
-    this.opts = {
-      height: "100%",
-      width: "100%",
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        rel: 0,
-        modestbranding: 1
-        }
-      };
     
     this.state = {
       movieVideos : [],
-      showPoster: true
+      showPoster: true,
     }
 
+  }
+
+  opts = {
+    height: "100%",
+    width: "100%",
+    playerVars: {
+      autoplay: 1,
+      controls: 0,
+      rel: 0,
+      modestbranding: 1
+      },
+    };
+
+  onPlayerStateChange = (event) => {
+    if(event.data === 0){
+      this.setState({showPoster: true})
+    }
+    else if(event.data === 1){
+      setTimeout(() =>{ 
+        this.handleChange()
+     }, 3000);
+    }
   }
 
   handleChange = () => {
@@ -40,9 +51,6 @@ class MovieDetails extends Component {
 
   componentDidMount(){
       this.getData()
-      setTimeout(() =>{ 
-          this.handleChange()
-       }, 6000);
 
   }
 
@@ -60,7 +68,7 @@ class MovieDetails extends Component {
     render(){
 
       const {movie} = this.props;
-      const {movieVideos} = this.state;
+      const {movieVideos, showPoster} = this.state;
 
       return (
         <div className="movie-details-section">
@@ -74,13 +82,15 @@ class MovieDetails extends Component {
                 </p>
               </div>
               <div className="movie-trailer-part">
-              {
-                    this.state.showPoster ? 
-                    <img src={`${this.baseUrl}${movie?.backdrop_path}`} alt={movie?.name} /> : null
-                  }
-
+                  <div className="poster-overlay"></div>
+                  <div className="overlay-left"></div>
+                  <div className="overlay-right"></div>
+                  <div className="overlay-top"></div>
+                  <div className="overlay-down"></div>
+                  <img className={showPoster ? 'active' : ''} src={`${this.baseUrl}${movie?.backdrop_path}`} alt={movie?.name} />
+                  
                   <div className="youtube-trailer">
-                      <YouTube videoId={movieVideos[0]?.key} className="youtube-trailer"  opts={this.opts} />
+                      <YouTube videoId={movieVideos[0]?.key} className="youtube-trailer" onStateChange={this.onPlayerStateChange}  opts={this.opts} />
                   </div>
                   
                    
