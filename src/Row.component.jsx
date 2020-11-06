@@ -50,7 +50,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
       </div>
       {
-        movieDetails ? <MovieDetails movie={movieDetails} />  : null
+        movieDetails ? <MovieDetails movie={movieDetails} fetchUrl={fetchUrl} />  : null
       }
       
     </div>
