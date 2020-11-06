@@ -154,7 +154,12 @@
 .extra-info .movie-match-count {
     font-weight: bold;
     color: green;
+    margin-right: 8px;
 
+}
+
+.extra-info .movie-date{
+    margin-right: 8px;
 }
 
 .extra-info .production-logo img{
