@@ -9,6 +9,7 @@ const baseUrl = "https://image.tmdb.org/t/p/original/";
 const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setmovies] = useState([]);
   const [ movieDetails, setmovieDetails] = useState('');
+  const [videoType, setVideoType] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +26,12 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       setmovieDetails('')
     }
     else{
+      if(fetchUrl.includes('movie')){
+        setVideoType('movie')
+      }
+      else{
+        setVideoType('tv')
+      }
       setmovieDetails(movie) 
     }
   }
@@ -50,7 +57,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
       </div>
       {
-        movieDetails ? <MovieDetails movie={movieDetails} fetchUrl={fetchUrl} />  : null
+        movieDetails ? <MovieDetails movie={movieDetails} videoType={videoType} />  : null
       }
       
     </div>

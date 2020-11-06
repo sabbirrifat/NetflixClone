@@ -16,8 +16,7 @@ class MovieDetails extends Component {
       showPoster: true,
       casts: [],
       movie_details: [],
-      match_count: 0,
-      videoType: ''
+      match_count: 0
     }
 
   }
@@ -40,7 +39,7 @@ class MovieDetails extends Component {
     else if(event.data === 1){
       setTimeout(() =>{ 
         this.handleChange()
-     }, 3000);
+     }, 2900);
     }
   }
 
@@ -49,30 +48,32 @@ class MovieDetails extends Component {
   }
 
   getData = async () => {
-    console.log('Im getting this', this.state.videoType);
-    const request = await axios.get(`/${this.state.videoType}/${this.props.movie?.id}?api_key=${this.API_KEY}&append_to_response=videos`);
+    console.log('Im getting this', this.props.videoType);
+    const { videoType} = this.props;
+    const request = await axios.get(`/${videoType}/${this.props.movie?.id}?api_key=${this.API_KEY}&append_to_response=videos`);
     this.setState({movieVideos: request.data.videos.results});
-    const casts = await axios.get(`/${this.state.videoType}/${this.props.movie?.id}/credits?api_key=${this.API_KEY}&append_to_response=videos`);
+    const casts = await axios.get(`/${videoType}/${this.props.movie?.id}/credits?api_key=${this.API_KEY}&append_to_response=videos`);
     this.setState({casts: casts.data.cast});
-    const details = await axios.get(`/${this.state.videoType}/${this.props.movie?.id}?api_key=${this.API_KEY}`);
+    const details = await axios.get(`/${videoType}/${this.props.movie?.id}?api_key=${this.API_KEY}`);
     this.setState({movie_details: details.data});
    }
 
-  componentDidUpdate(prevProps, prevState){
+ /*  componentDidUpdate(prevProps, prevState){
         let videoType = this.props.videoType;
 
         if(prevState.videoType !== videoType){
           this.getData()
         }
-  }
+  } */
 
   componentDidMount(){
-    if (this.props.fetchUrl.includes('movie')){
+    /* if (this.props.fetchUrl.includes('movie')){
       this.setState({videoType: 'movie'})
     }
     else{
       this.setState({videoType: 'tv'})
-    }
+    } */
+    this.getData()
     this.setState({match_count: Math.floor(Math.random() * (99 - 90) + 90)});
 
   }
@@ -92,8 +93,8 @@ class MovieDetails extends Component {
 
       console.log('this after the render', this.state.videoType);
 
-      const {movie} = this.props;
-      const {movieVideos, showPoster, casts, movie_details, match_count, videoType} = this.state;
+      const {movie, videoType} = this.props;
+      const {movieVideos, showPoster, casts, movie_details, match_count} = this.state;
       const genresLength = movie_details?.genres?.length;
       const castsLength = casts?.length;
 
@@ -102,7 +103,7 @@ class MovieDetails extends Component {
         let rhours = Math.floor(hours);
         let minutes = (hours - rhours) * 60;
         let rminutes = Math.round(minutes);
-        return `${rhours} ${rhours > 1 ? 'hours' : 'hour'} and ${rminutes} ${rminutes > 1 ? 'minutes' : 'minute'}.`;
+        return ` ${rhours} ${rhours > 1 ? 'hours' : 'hour'} ${rminutes} ${rminutes > 1 ? 'minutes' : 'minute'}`;
         }
 
       return (
@@ -119,7 +120,7 @@ class MovieDetails extends Component {
                   videoType === 'tv' ? 
                   <p className="extra-info">
                   <span className="movie-match-count">{match_count}% Match </span>
-                  {movie_details?.last_air_date?.slice(0,4)}   
+                  <span className="movie-date"> {movie_details?.last_air_date?.slice(0,4)} </span>   
                   {movie_details?.number_of_seasons > 1 ?  ` ${movie_details?.number_of_seasons} Seasons ` :  ` ${movie_details?.number_of_seasons} Season`} 
                   <span className="production-logo">{movie_details?.networks ? 
                     <img src={`${this.baseUrl}${movie_details?.networks[0]?.logo_path}`} /> : null
@@ -128,10 +129,11 @@ class MovieDetails extends Component {
 
                   <p className="extra-info">
                   <span className="movie-match-count">{match_count}% Match </span>
-                  {movie_details?.release_date?.slice(0,4)}   
+                  <span className="movie-date"> {movie_details?.release_date?.slice(0,4)} </span>  
                   {movie_details?.runtime > 60 ? timeConvert(movie_details?.runtime) : `${movie_details?.runtime} minutes`} 
-                  <span className="production-logo">{movie_details?.production_companies ? 
-                    <img src={`${this.baseUrl}${movie_details?.production_companies[0]?.logo_path}`} /> : null
+                  <span className="production-logo">{movie_details?.production_companies?.length ?
+                     movie_details?.production_companies[0]?.logo_path ?
+                    <img src={`${this.baseUrl}${movie_details?.production_companies[0]?.logo_path}`} />: null : null
                   }</span>
                   </p>
 
