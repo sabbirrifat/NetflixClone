@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component } from 'react'
 import './movie-details.css'
 import YouTube from 'react-youtube';
 import axios from './axios'
@@ -123,7 +123,7 @@ class MovieDetails extends Component {
                   <span className="movie-date"> {movie_details?.last_air_date?.slice(0,4)} </span>   
                   {movie_details?.number_of_seasons > 1 ?  ` ${movie_details?.number_of_seasons} Seasons ` :  ` ${movie_details?.number_of_seasons} Season`} 
                   <span className="production-logo">{movie_details?.networks ? 
-                    <img src={`${this.baseUrl}${movie_details?.networks[0]?.logo_path}`} /> : null
+                    <img src={`${this.baseUrl}${movie_details?.networks[0]?.logo_path}`} alt="network logo" /> : null
                   }</span>
                   </p> :
 
@@ -133,7 +133,7 @@ class MovieDetails extends Component {
                   {movie_details?.runtime > 60 ? timeConvert(movie_details?.runtime) : `${movie_details?.runtime} minutes`} 
                   <span className="production-logo">{movie_details?.production_companies?.length ?
                      movie_details?.production_companies[0]?.logo_path ?
-                    <img src={`${this.baseUrl}${movie_details?.production_companies[0]?.logo_path}`} />: null : null
+                    <img src={`${this.baseUrl}${movie_details?.production_companies[0]?.logo_path}`} alt="production-logo" />: null : null
                   }</span>
                   </p>
 
@@ -167,7 +167,7 @@ class MovieDetails extends Component {
                   <div className="overlay-right"></div>
                   <div className="overlay-top"></div>
                   <div className="overlay-down"></div>
-                  <img className={showPoster ? 'active' : ''} src={`${this.baseUrl}${movie?.backdrop_path}`} alt={movie?.name} />
+                  <img className={showPoster ? 'active' : ''} src={`${this.baseUrl}${movie?.backdrop_path}`} alt="movie-poster" />
                   
                   <div className="youtube-trailer">
                       <YouTube videoId={movieVideos[0]?.key} className="youtube-trailer" onStateChange={this.onPlayerStateChange}  opts={this.opts} />
