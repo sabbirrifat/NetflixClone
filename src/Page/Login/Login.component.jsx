@@ -1,25 +1,86 @@
-import React from 'react'
+import React, { Component } from 'react'
 import './login.styles.css';
+import GoogleButton from 'react-google-button'
+import {auth, signInWithGoogle} from '../../firebase/firebase.utils'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const Login = () => {
+class Login extends Component {
 
-    const handleChange = () => {
+    constructor(){
+        super();
+        this.state = {
+            email : '',
+            password: ''
+        }
 
     }
 
-    const handleSubmit = () => {
-
+    handleChange = (event) => {
+        this.setState({[event.target.name] : event.target.value})
     }
 
-    return (
-        <div className="login-page">
-            <h1>Login Page</h1>
-            <form onSubmit={handleSubmit}>
+    handleSubmit = async event => {
+        event.preventDefault();
 
+        const {email, password} = this.state;
+
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            this.setState({email: '', password:' '});
+        } catch (err) {
+            this.setState({firebaseErrors: err.message});
+            console.error('something went wrong with sign in with email and password', err);
+        }
+    }
+
+    render(){
+      if (this.props.user){
+          this.props.history.push('/')
+      }
+        return (
+            <div className="login-page">
+
+                <div className="login-container">
+                    <h1>Sign In</h1>
+                    <form onSubmit={this.handleSubmit} className="login-form">
+                    <div className="text-field">
+                        
+                        <input
+                            type="email"
+                            name='email'
+                            onChange={this.handleChange}
+                            Value={this.state.email}
+                            required
+                        />
+                        <span className="form-label">Email Address</span>
+                    </div>
+
+                    <div className="text-field">
+                        <input 
+                            type="password"
+                            name='password'
+                            onChange={this.handleChange}
+                            Value={this.state.password}
+                            required
+                        />
+                        <span className="form-label">Password</span>
+                     </div>
+                    <button type="submit" className="login-button">Sign In</button>
+                    </form>
+                    <GoogleButton onClick={signInWithGoogle}/>
+                </div>
+
+                <div className="black-overlay"></div>
                 
-            </form>
-        </div>
-    )
+            </div>
+        )
+    }
 }
 
-export default Login
+
+const mapStateToProps = ({user}) => ({
+    user : user.currentUser
+})
+
+export default withRouter(connect(mapStateToProps)(Login))

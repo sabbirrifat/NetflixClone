@@ -4,6 +4,9 @@ import Navbar from './Navbar.component';
 import HomePage from './HomePage.component';
 import Login from './Page/Login/Login.component';
 import {Route, Switch} from 'react-router-dom'
+import addUser from './redux/user/user-action';
+import { connect } from 'react-redux';
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 
 class App extends Component {
   componentDidMount() {
@@ -41,4 +44,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  addUser: (user) => { dispatch(addUser(user))}
+  })
+
+export default connect(null, mapDispatchToProps)(App);
