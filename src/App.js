@@ -13,6 +13,7 @@ class App extends Component {
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth) {
+        console.log(userAuth)
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
@@ -34,7 +35,7 @@ class App extends Component {
   render(){
     return (
       <div className="app">
-          <Navbar/>
+          <Navbar user={this.props.user}/>
           <Switch>
             <Route exact path="/" component={HomePage}  />
             <Route path="/login" component={Login} />
@@ -48,4 +49,8 @@ const mapDispatchToProps = (dispatch) => ({
   addUser: (user) => { dispatch(addUser(user))}
   })
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = ({user}) => ({
+  user : user.currentUser
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

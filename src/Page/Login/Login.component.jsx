@@ -50,7 +50,7 @@ class Login extends Component {
                             type="email"
                             name='email'
                             onChange={this.handleChange}
-                            Value={this.state.email}
+                            value={this.state.email}
                             required
                         />
                         <span className="form-label">Email Address</span>
@@ -61,16 +61,17 @@ class Login extends Component {
                             type="password"
                             name='password'
                             onChange={this.handleChange}
-                            Value={this.state.password}
+                            value={this.state.password}
                             required
                         />
                         <span className="form-label">Password</span>
                      </div>
                     <button type="submit" className="login-button">Sign In</button>
                     </form>
-                    <GoogleButton onClick={signInWithGoogle}/>
+                    <button className="google-sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+                    <p className="sign-up-text">New to Netflix? <span> Sign up now.</span></p>
+                    <p>This page is protected by Google reCAPTCHA to ensure you're not a bot.</p>
                 </div>
-
                 <div className="black-overlay"></div>
                 
             </div>
