@@ -7,6 +7,7 @@ import {Route, Switch} from 'react-router-dom'
 import addUser from './redux/user/user-action';
 import { connect } from 'react-redux';
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import Register from './Page/Register/Resgister.component'
 
 class App extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={HomePage}  />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
           </Switch>
       </div>
     );
