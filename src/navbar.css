@@ -20,6 +20,9 @@
 
 .nav_logo {
     width: 150px;
+    margin-left: 20px;
+    margin-top: 5px;
+    cursor: pointer;
     object-fit: contain;
 }
 

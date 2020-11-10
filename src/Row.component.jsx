@@ -6,16 +6,21 @@ import './row.css';
 
 const baseUrl = "https://image.tmdb.org/t/p/original/";
 
-const Row = ({ title, fetchUrl, isLargeRow }) => {
+const Row = ({ title, fetchUrl, isLargeRow, movieData }) => {
   const [movies, setmovies] = useState([]);
   const [ movieDetails, setmovieDetails] = useState('');
   const [videoType, setVideoType] = useState('');
 
   useEffect(() => {
     async function fetchData() {
+      if(fetchUrl){
       const request = await axios.get(fetchUrl);
       setmovies(request.data.results);
       return request;
+      }
+      else {
+        setmovies(movieData)
+      }
     }
     fetchData();
   }, [fetchUrl]);
@@ -37,10 +42,10 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   }
 
   return (
+    
     <div className="row">
       <h2>{title}</h2>
       <div className="row_posters" >
-        
         {movies.map((item, key) => (
           <>
           <img

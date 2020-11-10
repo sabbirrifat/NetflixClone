@@ -20,7 +20,8 @@ class MovieDetails extends Component {
       casts: [],
       movie_details: [],
       match_count: 0,
-      mylistAdded: false
+      mylistAdded: false,
+      firebseMyListDoc: ''
     }
 
   }
@@ -84,17 +85,31 @@ class MovieDetails extends Component {
 
   }
 
+  handleListDelete = async () => {
+    if(this.state.mylistAdded){
+      const userRef = firestore.doc(`/users/${this.props?.user?.id}/mylist/${this.state.firebseMyListDoc}`);
+      try {
+        await userRef.delete();
+        this.setState({ mylistAdded: false})
+      } catch (err) {
+          console.error('error uploading user additional info', err.message);
+      }
+    }
+  }
+
   handleListAdded = () => {
     const userRef = firestore.collection(`/users/${this.props?.user?.id}/mylist`);
     if(userRef){
       try{
       userRef.onSnapshot( async snapshot => {
         const data = snapshot.docs;
-        const isAdded = data.filter((doc) => doc.data().movie.id === this.props.movie.id);
-        console.log('is added data', isAdded);
-        if (isAdded.length){
-          this.setState({mylistAdded: true})
-        }
+        
+        data.map((doc) => {
+          if(doc.data().movie.id === this.props.movie.id){
+            this.setState({firebseMyListDoc: doc.id});
+            this.setState({mylistAdded: true})
+          }
+        });
       })
       }
       catch(err){
@@ -119,8 +134,6 @@ class MovieDetails extends Component {
           this.setState({
             mylistAdded : true
           })
-
-
 
         }
         catch (err) {
@@ -149,7 +162,7 @@ class MovieDetails extends Component {
       console.log('this after the render', this.state.videoType);
 
       const {movie, videoType} = this.props;
-      const {movieVideos, showPoster, casts, movie_details, match_count, mylistAdded} = this.state;
+      const {movieVideos, showPoster, casts, movie_details, match_count, mylistAdded, firebseMyListDoc} = this.state;
       const genresLength = movie_details?.genres?.length;
       const castsLength = casts?.length;
 
@@ -175,7 +188,14 @@ class MovieDetails extends Component {
                   <button className="movie-play-btn"><i class="fas fa-play"></i> Play</button>
                   <button onClick={() => this.handleMylist(movie)} className={`added-list ${mylistAdded ? 'movie-added' : ''}`}>
                     { mylistAdded ? <i className="fas fa-check"></i> : <i className="fas fa-plus"> </i>}
-                    </button>
+                  </button>
+
+                  {
+                    mylistAdded ?
+                      <button onClick={this.handleListDelete} className='added-list delete'>
+                        <i className="fas fa-times"> </i>
+                      </button> : null
+                  }
                 </div>
                 {
                   videoType === 'tv' ? 

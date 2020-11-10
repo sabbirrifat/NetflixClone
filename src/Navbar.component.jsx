@@ -23,13 +23,13 @@ const Navbar = ({user}) => {
     }, [])
     return (
         <div className={`navbar ${handleShow ? 'show' : ''}`}>
-            <img className="nav_logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png" alt=""/>
+            <img className="nav_logo" onClick={() => history.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png" alt=""/>
                
                 <div className="nav-elements">
                     {
                      user ? 
                         <ul className={handleShow ? 'blackBack' : ''}>
-                            <li className="nav-links">My List</li>
+                            <li className="nav-links" onClick={() => history.push('/mylist')}>My List</li>
                             <li className="nav-links" onClick={() => auth.signOut()} >Sign Out</li>
                             <li><img className="nav_avatar" src={user.photoUrl !== 'default' ? user.photoUrl : baseAvaterUrl} alt=""/></li>
                         </ul> :
