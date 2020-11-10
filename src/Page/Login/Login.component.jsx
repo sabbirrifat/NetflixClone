@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './login.styles.css';
-import GoogleButton from 'react-google-button'
 import {auth, signInWithGoogle} from '../../firebase/firebase.utils'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';

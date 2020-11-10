@@ -10,12 +10,12 @@ function HomePage() {
       <Banner />
       <Row title="NETFLIX ORIGINALS" isLargeRow fetchUrl={requests.fetchNetflixOriginals}/>
       <Row title="TRENDING NOW" fetchUrl={requests.fetchTrending}/>
-      <Row title="Top Rated" fetchUrl={requests.fetchTopRated}/>
-      <Row title="Action Movies" fetchUrl={requests.fetchActionMovies}/>      
+      <Row title="Sci-fi Movies" fetchUrl={requests.fetchScifiMovies}/>
+      <Row title="Popular TV Show" fetchUrl={requests.fetchTopRated}/>      
       <Row title="Comedy Movies" fetchUrl={requests.fetchComedyMovies}/>
+      <Row title="Crime Series" fetchUrl={requests.fetchCrimeSeries}/>
       <Row title="Horror Movies" fetchUrl={requests.fetchHorrorMovies}/>
-      <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries}/>
-      <Row title="Romance Movies" fetchUrl={requests.fetchRomanceMovies}/>
+      <Row title="Drama Series" fetchUrl={requests.fetchDramaSeries}/>
     </div>
   );
 }

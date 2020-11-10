@@ -18,7 +18,7 @@
     display: flex;
     flex-basis: 50%;
     max-width: 740px;
-    padding-top: 70px;
+    padding-top: 85px;
     padding-left: 20px;
     flex-direction: column;
     justify-content: center;
@@ -181,6 +181,7 @@
 
 .funtion-buttons {
     display: flex;
+    margin-top: 10px;
 }
 
 .movie-play-btn {
@@ -209,7 +210,7 @@
     padding: 0px 15px;
     height: 50px;
     margin-top: 3px;
-    margin-left: 14px;
+    margin-left: 24px;
     color: white;
     background-color: transparent;
     border: 3px solid white;
