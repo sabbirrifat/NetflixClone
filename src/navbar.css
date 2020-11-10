@@ -43,12 +43,14 @@
 
 .nav-elements ul li{
     margin-right: 20px;
-    font-size: 18px;
-    font-weight: 300;
-    color: white;
+    font-size: 20px;
+    margin-top: -5px;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    color: rgb(241, 241, 241);
 }
 .nav-elements .nav-links {
-    border: 1px solid white;
+    
     cursor: pointer;
     padding: 5px 10px;
 }

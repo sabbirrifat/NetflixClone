@@ -23,7 +23,7 @@ const Row = ({ title, fetchUrl, isLargeRow, movieData }) => {
       }
     }
     fetchData();
-  }, [fetchUrl]);
+  }, [fetchUrl, movieData]);
 
 
   const handleClick = (movie) => {

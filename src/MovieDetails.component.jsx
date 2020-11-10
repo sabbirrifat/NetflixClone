@@ -107,8 +107,9 @@ class MovieDetails extends Component {
         data.map((doc) => {
           if(doc.data().movie.id === this.props.movie.id){
             this.setState({firebseMyListDoc: doc.id});
-            this.setState({mylistAdded: true})
+            this.setState({mylistAdded: true});
           }
+          return ''
         });
       })
       }
@@ -162,7 +163,7 @@ class MovieDetails extends Component {
       console.log('this after the render', this.state.videoType);
 
       const {movie, videoType} = this.props;
-      const {movieVideos, showPoster, casts, movie_details, match_count, mylistAdded, firebseMyListDoc} = this.state;
+      const {movieVideos, showPoster, casts, movie_details, match_count, mylistAdded} = this.state;
       const genresLength = movie_details?.genres?.length;
       const castsLength = casts?.length;
 
