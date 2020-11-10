@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import './movie-details.css'
 import YouTube from 'react-youtube';
 import axios from './axios'
+import { firestore } from './firebase/firebase.utils';
+import {connect} from 'react-redux'
+import { withRouter } from 'react-router-dom';
 
 
 class MovieDetails extends Component {
@@ -16,11 +19,11 @@ class MovieDetails extends Component {
       showPoster: true,
       casts: [],
       movie_details: [],
-      match_count: 0
+      match_count: 0,
+      mylistAdded: false
     }
 
   }
-
   opts = {
     height: "100%",
     width: "100%",
@@ -73,9 +76,61 @@ class MovieDetails extends Component {
     else{
       this.setState({videoType: 'tv'})
     } */
-    this.getData()
+
+    
+    this.getData();
+    this.handleListAdded();
     this.setState({match_count: Math.floor(Math.random() * (99 - 90) + 90)});
 
+  }
+
+  handleListAdded = () => {
+    const userRef = firestore.collection(`/users/${this.props?.user?.id}/mylist`);
+    if(userRef){
+      try{
+      userRef.onSnapshot( async snapshot => {
+        const data = snapshot.docs;
+        const isAdded = data.filter((doc) => doc.data().movie.id === this.props.movie.id);
+        console.log('is added data', isAdded);
+        if (isAdded.length){
+          this.setState({mylistAdded: true})
+        }
+      })
+      }
+      catch(err){
+        console.log("error getting my data", err.message)
+      }
+    }
+    
+  }
+
+  handleMylist = async (movie) => {
+    if (!this.state.mylistAdded){
+      const {user} = this.props;
+      if (user) {
+        const userRef = firestore.collection(`/users/${user.id}/mylist`);
+        const listDoc = userRef.doc();
+
+        try {
+          await listDoc.set({
+            movie
+          });
+
+          this.setState({
+            mylistAdded : true
+          })
+
+
+
+        }
+        catch (err) {
+          console.log("movie is not added", err.message)
+        }
+      }
+      else{
+        this.props.history.push('/login');
+      }
+    }
   }
 
 
@@ -94,7 +149,7 @@ class MovieDetails extends Component {
       console.log('this after the render', this.state.videoType);
 
       const {movie, videoType} = this.props;
-      const {movieVideos, showPoster, casts, movie_details, match_count} = this.state;
+      const {movieVideos, showPoster, casts, movie_details, match_count, mylistAdded} = this.state;
       const genresLength = movie_details?.genres?.length;
       const castsLength = casts?.length;
 
@@ -116,6 +171,12 @@ class MovieDetails extends Component {
                 <p className="movie-overview">
                   {movie?.overview?.length > 200 ? movie?.overview.slice(0, 200) + '...' : movie?.overview}
                 </p>
+                <div className="funtion-buttons">
+                  <button className="movie-play-btn"><i class="fas fa-play"></i> Play</button>
+                  <button onClick={() => this.handleMylist(movie)} className={`added-list ${mylistAdded ? 'movie-added' : ''}`}>
+                    { mylistAdded ? <i className="fas fa-check"></i> : <i className="fas fa-plus"> </i>}
+                    </button>
+                </div>
                 {
                   videoType === 'tv' ? 
                   <p className="extra-info">
@@ -181,4 +242,8 @@ class MovieDetails extends Component {
    }   
 }
 
-export default MovieDetails
+const mapStateToProps = (state) => ({
+  user : state.user.currentUser
+})
+
+export default withRouter(connect(mapStateToProps)(MovieDetails))
