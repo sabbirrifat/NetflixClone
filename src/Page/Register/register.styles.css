@@ -1,6 +1,7 @@
-.login-page {
+.register-page {
     width: 100%;
-    height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 150px;
     display: flex;
     background-image: url(https://assets.nflxext.com/ffe/siteui/vlv3/bcd713c9-291e-4186-a275-117b387eaaf2/b4bdb09f-3018-4244-a0aa-88710bb8c60a/BD-en-20201019-popsignuptwoweeks-perspective_alpha_website_medium.jpg);
     background-position: center;
@@ -10,7 +11,7 @@
     align-items: center;
 }
 
-.login-container {
+.register-container {
     z-index: 100;
     width: 340px;
     padding: 60px 68px;
@@ -24,14 +25,14 @@
     -o-border-radius: 5px;
 }
 
-.login-container h1{
+.register-container h1{
     font-size: 32px;
     text-align: start;
     color: white;
     margin-bottom: 26px;
 }
 
-.login-container .login-form button{
+.register-container .register-form button{
     width: 100%;
     height: 50px;
     border: none;
@@ -50,7 +51,7 @@
     -o-border-radius: 4px;
 }
 
-.login-container input {
+.register-container input {
     width: 100%;
     background-color: #333;
     border: 0;
@@ -71,7 +72,7 @@
     display: flex;
 }
 
-.login-container .form-label{
+.register-container .form-label{
     position: absolute;
     top: 50%;
     left: 20px;
@@ -86,23 +87,14 @@
     -o-transition: all 0.3s ;
 }
 
-.login-container input:focus + span{
+.register-container input:focus + span{
     font-size: 10px;
     top: 20%;
 }
 
 
-.login-container p{
+.register-container p{
     margin-top: 10px;
     color:  rgb(117, 116, 116);
     font-size: 14px;
-}
-
-.black-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
 }

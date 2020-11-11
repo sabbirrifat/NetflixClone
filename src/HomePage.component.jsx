@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './homepage.css'
 import requests from './requests';
 import Row from './Row.component';
 import Banner from './Banner.component';

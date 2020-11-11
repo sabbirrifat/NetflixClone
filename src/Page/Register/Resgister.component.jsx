@@ -50,11 +50,11 @@ class Register extends Component {
           this.props.history.push('/')
       }
         return (
-            <div className="login-page">
+            <div className="register-page">
 
-                <div className="login-container">
+                <div className="register-container">
                     <h1>Sign Up</h1>
-                    <form onSubmit={this.handleSubmit} className="login-form">
+                    <form onSubmit={this.handleSubmit} className="register-form">
                     <div className="text-field">
                         
                         <input
@@ -102,7 +102,7 @@ class Register extends Component {
                      </div>
 
 
-                    <button type="submit" className="login-button">Sign Up</button>
+                    <button type="submit" className="register-button">Sign Up</button>
                     </form>
                     <p>This page is protected by Google reCAPTCHA to ensure you're not a bot.</p>
                 </div>
