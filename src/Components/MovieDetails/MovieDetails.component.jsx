@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import './movie-details.css'
+import './movie-details.styles.css'
 import YouTube from 'react-youtube';
-import axios from './axios'
-import { firestore } from './firebase/firebase.utils';
-import {connect} from 'react-redux'
+import axios from '../../Utils/axios';
+import { firestore } from '../../firebase/firebase.utils';
+import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 

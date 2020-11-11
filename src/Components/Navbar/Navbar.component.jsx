@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from './firebase/firebase.utils';
-import './navbar.css';
+import { auth } from '../../firebase/firebase.utils';
+import './navbar.styles.css';
 
 const Navbar = ({user}) => {
     const [handleShow, sethandleShow] = useState(false);

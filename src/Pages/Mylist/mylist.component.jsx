@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './mylist.styles.css';
 import { connect } from 'react-redux';
 import { firestore } from '../../firebase/firebase.utils';
-import Row from '../../Row.component';
+import Row from '../../Components/Row/Row.component';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 export class Mylist extends Component {
