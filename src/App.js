@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import Register from './Page/Register/Resgister.component'
 import Mylist from './Page/Mylist/mylist.component';
+import Footer from './Footer.component';
 
 class App extends Component {
   componentDidMount() {
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/mylist" component={Mylist} />
           </Switch>
+          <Footer/>
       </div>
     );
   }

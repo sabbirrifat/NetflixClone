@@ -68,7 +68,7 @@ class Login extends Component {
                     <button type="submit" className="login-button">Sign In</button>
                     </form>
                     <button className="google-sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
-                    <p className="sign-up-text">New to Netflix? <span> Sign up now.</span></p>
+                    <p className="sign-up-text">New to Netflix? <span onClick={() => this.props.history.push('/register')}> Sign up now.</span></p>
                     <p>This page is protected by Google reCAPTCHA to ensure you're not a bot.</p>
                 </div>
                 <div className="black-overlay"></div>
