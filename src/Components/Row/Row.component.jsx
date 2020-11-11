@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import MovieDetails from './MovieDetails.component';
-import axios from "./axios";
-import './row.css';
+import MovieDetails from '../MovieDetails/MovieDetails.component';
+import axios from "../../Utils/axios";
+import './row.styles.css';
 
 
 const baseUrl = "https://image.tmdb.org/t/p/original/";

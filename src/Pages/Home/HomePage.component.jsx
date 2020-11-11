@@ -1,8 +1,8 @@
 import React from 'react';
-import './homepage.css'
-import requests from './requests';
-import Row from './Row.component';
-import Banner from './Banner.component';
+import './homepage.styles.css'
+import requests from '../../Utils/requests';
+import Row from '../../Components/Row/Row.component';
+import Banner from '../../Components/Banner/Banner.component';
 
 function HomePage() {
   return (

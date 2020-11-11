@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './Navbar.component';
-import HomePage from './HomePage.component';
-import Login from './Page/Login/Login.component';
+import Navbar from './Components/Navbar/Navbar.component';
+import HomePage from './Pages/Home/HomePage.component';
+import Login from './Pages/Login/Login.component';
 import {Route, Switch} from 'react-router-dom'
 import addUser from './redux/user/user-action';
 import { connect } from 'react-redux';
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import Register from './Page/Register/Resgister.component'
-import Mylist from './Page/Mylist/mylist.component';
-import Footer from './Footer.component';
+import Register from './Pages/Register/Resgister.component'
+import Mylist from './Pages/Mylist/mylist.component';
+import Footer from './Components/Footer/Footer.component';
 
 class App extends Component {
   componentDidMount() {
