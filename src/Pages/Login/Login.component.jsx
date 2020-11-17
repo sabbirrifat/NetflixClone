@@ -37,30 +37,32 @@ class Login extends Component {
       if (this.props.user){
           this.props.history.push('/')
       }
+
+      const {email, password} = this.state;
         return (
             <div className="login-page">
 
                 <div className="login-container">
                     <h1>Sign In</h1>
-                    <form onSubmit={this.handleSubmit} className="login-form">
-                    <div className="text-field">
+                    <form onSubmit={this.handleSubmit} className='login-form'>
+                    <div className={`text-field ${email ? 'focused' : ''}`}>
                         
                         <input
                             type="email"
                             name='email'
                             onChange={this.handleChange}
-                            value={this.state.email}
+                            value={email}
                             required
                         />
                         <span className="form-label">Email Address</span>
                     </div>
 
-                    <div className="text-field">
+                    <div className="text-field" className={`text-field ${password ? 'focused' : ''}`}>
                         <input 
                             type="password"
                             name='password'
                             onChange={this.handleChange}
-                            value={this.state.password}
+                            value={password}
                             required
                         />
                         <span className="form-label">Password</span>

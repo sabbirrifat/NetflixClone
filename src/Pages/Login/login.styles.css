@@ -87,6 +87,12 @@
     -o-transition: all 0.3s ;
 }
 
+.focused span{
+    font-size: 10px !important;
+    top: 20% !important;
+}
+
+
 .login-container input:focus + span{
     font-size: 10px;
     top: 20%;
