@@ -23,7 +23,7 @@ const Navbar = ({user}) => {
     }, [])
     return (
         <div className={`navbar ${handleShow ? 'show' : ''}`}>
-            <img className="nav_logo" onClick={() => history.push('/')} src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Logo_Netflix.png" alt=""/>
+            <img className="nav_logo" onClick={() => history.push('/')} src="https://www.freepnglogos.com/uploads/red-netflix-logo-text-png-3.png" alt=""/>
                
                 <div className="nav-elements">
                     {
