@@ -26,18 +26,26 @@ const Row = ({ title, fetchUrl, isLargeRow, movieData }) => {
   }, [fetchUrl, movieData]);
 
 
+  const handleNewMovie = (movie) => {
+    setmovieDetails(movie);
+  }
+
+
   const handleClick = (movie) => {
-    if(movieDetails){
+    if(movieDetails?.id === movie?.id){
       setmovieDetails('')
     }
     else{
+      setmovieDetails('');
       if(fetchUrl.includes('movie')){
         setVideoType('movie')
       }
       else{
         setVideoType('tv')
       }
-      setmovieDetails(movie) 
+      setTimeout(() => {
+        handleNewMovie(movie);
+      }, 150)
     }
   }
 
